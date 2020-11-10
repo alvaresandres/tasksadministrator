@@ -7,7 +7,6 @@ pipeline{
         SERVER_PATH    = '"E:\\serverfirebase\\public"'
         BUILD_PATH     = '"C:\\Program Files (x86)\\Jenkins\\workspace\\taskAdministrator\\build"'
         FIREBASE       = '"C:\\Users\\alvar\\AppData\\Roaming\\npm\\firebase"'
-        FIREBASE_TOKEN = ""
     }
 stages{
 
@@ -59,7 +58,7 @@ stages{
             bat '''cd\\
             E:
             cd E:\\serverfirebase
-            call $FIREBASE deploy --token $FIREBASE_TOKEN
+            call %FIREBASE% deploy --token %FIREBASE_TOKEN%
             '''
         }
     }
