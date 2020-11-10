@@ -54,6 +54,13 @@ stages{
     
     stage('deploy'){
         steps{
+            bat '''cd\\
+            E:
+            cd E:\\serverfirebase
+            rmdir /s /q public
+            mkdir public
+            '''
+
             bat "xcopy ${BUILD_PATH} ${SERVER_PATH} /s /y"
             bat '''cd\\
             E:
@@ -63,5 +70,4 @@ stages{
         }
     }
   }
-
 }
