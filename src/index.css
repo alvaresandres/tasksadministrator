@@ -11,13 +11,14 @@ background: -webkit-linear-gradient(90deg, rgb(252, 123, 123) 0%, rgb(166, 193, 
 background: linear-gradient(90deg, rgb(100, 1, 255) 0%, rgb(139, 252, 254) 100%); 
 background: -webkit-linear-gradient(90deg, rgb(100, 1, 255) 0%, rgb(139, 252, 254) 100%); */
 
-/*background: #1D4350;  
+background: #1D4350;  
 background: -webkit-linear-gradient(to right, #A43931, #1D4350);  
-background: linear-gradient(to right, #A43931, #1D4350); */
-background: #403A3E;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #BE5869, #403A3E);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #BE5869, #403A3E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #A43931, #1D4350); 
 
+/*background: #403A3E;  
+background: -webkit-linear-gradient(to left, #BE5869, #403A3E);
+background: linear-gradient(to left, #BE5869, #403A3E); 
+*/
 }
 
 code {

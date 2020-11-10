@@ -5,7 +5,9 @@ pipeline{
         PATH_ARTIFACTS = '"C:\\Artifacts\\"'
         MODULES_EXISTS = 'true'
         SERVER_PATH    = '"E:\\serverfirebase\\public"'
-        BUILD_PATH     = '"${WORKSPACE}\\build"'
+        BUILD_PATH     = '"C:\\Program Files (x86)\\Jenkins\\workspace\\taskAdministrator\\build"'
+        FIREBASE       = '"C:\\Users\\alvar\\AppData\\Roaming\\npm\\firebase"'
+        FIREBASE_TOKEN = ""
     }
 stages{
 
@@ -28,8 +30,10 @@ stages{
     stage('Cloning'){
         steps{
             print 'cloning repository...'
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
-            userRemoteConfigs: [[url: 'https://github.com/alvaresandres/tasksadministrator.git']]])
+            bat 'rmdir /s /q "E:\\rep"'
+            bat 'mkdir "E:\\rep"'
+            bat 'git clone -b main https://github.com/alvaresandres/tasksadministrator.git "E:\\rep"'
+            bat 'xcopy "E:\\rep" "'+WORKSPACE+'" /s /y'
         }
     }
  
@@ -55,13 +59,10 @@ stages{
             bat '''cd\\
             E:
             cd E:\\serverfirebase
-            firebase deploy
+            call $FIREBASE deploy --token $FIREBASE_TOKEN
             '''
-            print "Build path: ${BUILD_PATH}"
-            print 'deploying...'
         }
     }
-
   }
 
 }
