@@ -1,0 +1,67 @@
+pipeline{
+    agent any
+
+    environment{
+        PATH_ARTIFACTS = '"C:\\Artifacts\\"'
+        MODULES_EXISTS = 'true'
+        SERVER_PATH    = '"E:\\serverfirebase\\public"'
+        BUILD_PATH     = '"${WORKSPACE}\\build"'
+    }
+stages{
+
+    stage('Verify-dependencies'){
+        steps{
+            script{
+                def objectFound = fileExists("${WORKSPACE}\\node_modules")
+
+                if(objectFound){
+                    print "Directory was found."
+                    MODULES_EXISTS = 'false'
+                    cleanWs deleteDirs: true, patterns: [[pattern: '**/node_modules/**', type: 'EXCLUDE']]
+                }
+                print "modulo :${MODULES_EXISTS}"
+                print "validated"
+            }
+        }
+    }  
+
+    stage('Cloning'){
+        steps{
+            print 'cloning repository...'
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
+            userRemoteConfigs: [[url: 'https://github.com/alvaresandres/tasksadministrator.git']]])
+        }
+    }
+ 
+    stage('Copy-dependencies'){
+        when {
+            expression { MODULES_EXISTS == 'true' }
+        }
+        steps{
+            bat 'xcopy '+env.PATH_ARTIFACTS+' "'+env.WORKSPACE+'" /s /q /y'
+        }
+    }
+
+    stage('build'){
+        steps{
+            print 'building...'
+            bat 'npm run build' 
+        }
+    }
+    
+    stage('deploy'){
+        steps{
+            bat "xcopy ${BUILD_PATH} ${SERVER_PATH} /s /y"
+            bat '''cd\\
+            E:
+            cd E:\\serverfirebase
+            firebase deploy
+            '''
+            print "Build path: ${BUILD_PATH}"
+            print 'deploying...'
+        }
+    }
+
+  }
+
+}
