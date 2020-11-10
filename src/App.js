@@ -36,7 +36,7 @@ class App extends Component {
       tasks.push({
         taskId: snap.key,
         taskTitle: snap.val().title,
-        taskResposible: snap.val().responsible,
+        taskResponsible: snap.val().responsible,
         taskDescription: snap.val().description,
         taskPriority: snap.val().priority
       })
